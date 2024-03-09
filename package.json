@@ -1,5 +1,5 @@
 {
-  "name": "Programowanie Sieciowe",
+  "name": "tcp-echo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
