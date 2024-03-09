@@ -3,6 +3,7 @@ const fs = require('fs');
 
 // Counting number of connections
 let countHosts = 0;
+const hosts = new Array();
 
 // Connect to the server
 const server = net.createServer((socket) => {
@@ -13,13 +14,23 @@ const server = net.createServer((socket) => {
 
     // Handle incoming data from the client
     socket.on("data", (data) => {
-        console.log("Recieved: ", data);
+        console.log("Recieved data: ", data);
+        console.log("Received data size: ", data.length)
+
+        // getting clients ip and port
+        const clientIP = socket.remoteAddress;
+        const clientPort = socket.remotePort;
+
+        // adding the new client into the array of connected hosts
+        if (!hosts.find((e) => e.ip === clientIP)) {
+            hosts.push({id: ++countHosts, ip: clientIP})
+        }
+
+        const host = hosts.find((e) => e.ip === clientIP);
 
         try {
             // Save logs of connected hosts
-            const clientIP = socket.remoteAddress;
-            const clientPort = socket.remotePort;
-            const log = String(`# ${++countHosts} ${clientIP}:${clientPort}\n`);
+            const log = String(`# ${host.id} ${clientIP}:${clientPort}\n`);
 
             fs.writeFile("./logs.txt", log, {flag: 'a+'}, (err) => {
                 if (err) {

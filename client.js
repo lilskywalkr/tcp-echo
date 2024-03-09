@@ -11,6 +11,7 @@ const client = net.createConnection({ port: 5000, host: SERVER_ADDRESS }, () => 
 
     // Send a message to the server
     client.write(CLIENT_MESSAGE);
+    console.log("Size of the sent data: ", CLIENT_MESSAGE.length);
 });
 
 // Handle errors
@@ -21,6 +22,7 @@ client.on("error", (err) => {
 // Handle data recieved from the server
 client.on('data', (data) => {
     console.log("Received from the server: ", data.toString());
+    console.log("Size of the received data: ", data.toString().length)
 
     // Close the connection after reveiving data
     client.end();
