@@ -1,9 +1,12 @@
 const net = require("net");
 
+// Message to send to the server
 const CLIENT_MESSAGE = "Hello, server! this is a test message";
+// IP address of the server host
+const SERVER_ADDRESS = String("192.168.100.6")
 
 // Connect to the server
-const client = net.createConnection({ port: 5000 }, () => {
+const client = net.createConnection({ port: 5000, host: SERVER_ADDRESS }, () => {
     console.log("Connected to server");
 
     // Send a message to the server
@@ -12,7 +15,7 @@ const client = net.createConnection({ port: 5000 }, () => {
 
 // Handle errors
 client.on("error", (err) => {
-    console.error('Client error: ', err.message);
+    console.error('Client error: ', err.code);
 })
 
 // Handle data recieved from the server
