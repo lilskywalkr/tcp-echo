@@ -49,6 +49,7 @@ server.on('error', (err) => {
 const PORT = 5000;
 const HOST = '192.168.100.6';
 
+// binding happens here
 server.listen(PORT, HOST, () => {
     console.log('Server listening on ' + HOST + ":" + PORT);
 });
